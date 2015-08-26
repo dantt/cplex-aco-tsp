@@ -1,0 +1,5 @@
+*.o
+*.lp
+main
+instances/*
+results/*
