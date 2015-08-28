@@ -9,7 +9,7 @@ def print_matrix(filename, pos, metric):
         for _i1, c in pos.iteritems():
             line = []
             for _i2, c2 in pos.iteritems():
-                line.append(metric(c, c2)*100)
+                line.append(metric(c, c2))
             writer.writerow(line)
 
 
