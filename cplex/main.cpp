@@ -204,8 +204,11 @@ int main (int argc, char const *argv[])
          * OTTIMIZZA
          * 
          */
-        
+        double start, end, total_time;
+        CHECKED_CPX_CALL(CPXgettime, env, &start);
         CHECKED_CPX_CALL( CPXmipopt, env, lp );
+        CHECKED_CPX_CALL(CPXgettime, env, &end);
+        total_time = end - start;
         
         /*
          * 
@@ -222,7 +225,8 @@ int main (int argc, char const *argv[])
         
         if (res.is_open())
         {
-            res << fixed << setprecision(8) << objval;
+            res << fixed << setprecision(8) << objval << endl;
+            res << fixed << setprecision(8) << total_time;
             res.close();
         }
 

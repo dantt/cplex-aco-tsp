@@ -12,6 +12,9 @@
 #include <cstdlib>
 
 using namespace std;
+using std::chrono::microseconds;
+using std::chrono::duration_cast;
+using std::chrono::high_resolution_clock;
 
 class Graph {
     
@@ -189,6 +192,7 @@ int main (int argc, char const *argv[])
     
     
     // Tour 
+    auto start = high_resolution_clock::now();
     vector<int> best_tour(N,0);
     double best_val = FLT_MAX;
     graph->calculate_metric(beta);
@@ -269,6 +273,9 @@ int main (int argc, char const *argv[])
         g_its++;
     }
     
+    auto end = high_resolution_clock::now();    
+    double t = duration_cast<microseconds>(end-start).count() * 1E-6;
+    
     string results_file = "../results/heur/";
     string filename(argv[1]);
     results_file =  results_file + filename.substr(filename.rfind('/')+1);
@@ -276,7 +283,8 @@ int main (int argc, char const *argv[])
     
     if (res.is_open())
     {
-        res << fixed << setprecision(8) << best_val;
+        res << fixed << setprecision(8) << best_val << endl;
+        res << fixed << setprecision(8) << t;
         res.close();
     }
     
